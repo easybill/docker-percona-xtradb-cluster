@@ -1,0 +1,1 @@
+sudo docker run -it --rm --cap-add NET_ADMIN -e "WSREP_CLUSTER_ADDRESS=gcomm://" -e "WSREP_CLUSTER_NAME=eb1" -e "BOOTSTRAP=1" -e "MYSQL_PASSWORD=test" -e "MYSQL_USER=user" -e "SQL_MODE=NO_ENGINE_SUBSTITUTION" -e "WSREP_NODE_NAME=master" -p "3306:3306" --ip "172.3.26.2" --network="mysql" percona57 /bin/bash
