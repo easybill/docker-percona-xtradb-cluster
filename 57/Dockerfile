@@ -37,16 +37,17 @@ RUN cd /tmp/percona_src && \
     mkdir pxc-build && \
     ./build-ps/build-binary.sh ./pxc-build
 
-RUN mv /tmp/percona_src/pxc-build/*.aarch64.tar.gz /tmp/percona_server.tar.gz
+RUN rm /tmp/percona_src/pxc-build/*-minimal.tar.gz
+RUN mv /tmp/percona_src/pxc-build/*.tar.gz /tmp/percona_server.tar.gz
 
 FROM ubuntu:21.04
 COPY --from=builder /tmp/percona_server.tar.gz /tmp/percona_server.tar.gz
 
 RUN cd /tmp && \
     tar -xf percona_server.tar.gz \
-    && mv /tmp/Percona-XtraDB-Cluster-*.Linux.aarch64 /usr/local/ \
+    && mv /tmp/Percona-XtraDB-Cluster-*.Linux.* /usr/local/ \
     && cd /usr/local  \
-    && mv Percona-XtraDB-Cluster-*.Linux.aarch64 mysql \
+    && mv Percona-XtraDB-Cluster-*.Linux.* mysql \
     && mkdir -p /usr/share/mysql/ \
     && cp -r /usr/local/mysql/lib/* /usr/lib/ \
     && cp -r /usr/local/mysql/share/english/* /usr/share/mysql
