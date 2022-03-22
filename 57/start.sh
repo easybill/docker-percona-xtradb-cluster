@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sed -i "s~ENV_SQL_MODE~$SQL_MODE~" /etc/mysql/my.cnf
+
 touch /var/log/mysql/error.log
 chmod -R 777 /var/lib/mysql
 chmod -R 777 /var/log/mysql
@@ -73,8 +75,6 @@ mv /_cluster.cnf /etc/mysql/conf.d/cluster.cnf
 sed -i "s~ENV_WSREP_CLUSTER_ADDRESS~$WSREP_CLUSTER_ADDRESS~" /etc/mysql/conf.d/cluster.cnf
 sed -i "s~ENV_WSREP_CLUSTER_NAME~$WSREP_CLUSTER_NAME~" /etc/mysql/conf.d/cluster.cnf
 sed -i "s~ENV_WSREP_NODE_NAME~$WSREP_NODE_NAME~" /etc/mysql/conf.d/cluster.cnf
-sed -i "s~ENV_SQL_MODE~$SQL_MODE~" /etc/mysql/my.cnf
-
 
 if [ "$*" == "" ]; then
     cd /var/lib/mysql

@@ -64,7 +64,6 @@ RUN useradd mysql \
     && mkdir -p /var/lib/mysql /var/run/mysqld /var/log/mysql \
     && chown -R mysql /var/lib/mysql /var/run/mysqld /var/log/mysql
 
-RUN echo 1
 ADD start.sh /start.sh
 
 ENTRYPOINT ["/start.sh"]
