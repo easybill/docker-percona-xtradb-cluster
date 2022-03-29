@@ -1,6 +1,6 @@
 build_all:
-	cd 57 && docker buildx build --platform linux/amd64 -t easybill/percona_xtradb_cluster:57_latest_amd64 .
-	cd 57 && docker buildx build --platform linux/arm64 -t easybill/percona_xtradb_cluster:57_latest_arm64 .
+	cd 57 && docker buildx build --no-cache --platform linux/amd64 -t easybill/percona_xtradb_cluster:57_latest_amd64 .
+	cd 57 && docker buildx build --no-cache --platform linux/arm64 -t easybill/percona_xtradb_cluster:57_latest_arm64 .
 
 build_and_push: build_all
 	docker push easybill/percona_xtradb_cluster:57_latest_arm64
