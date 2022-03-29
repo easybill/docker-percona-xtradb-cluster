@@ -49,12 +49,12 @@ wsrep_node_name="ENV_WSREP_NODE_NAME"
 wsrep_slave_threads = 4
 wsrep_sst_method = xtrabackup-v2
 wsrep_sst_auth = user:pass
-wsrep_sync_wait = 6
+wsrep_sync_wait = 0
 
 # optimized for docker
 innodb_doublewrite=OFF
 innodb_flush_log_at_trx_commit=2
-innodb_flush_method=fsync
+innodb_flush_method=O_DIRECT
 sync_binlog=0
 [sst]
 streamfmt = xbstream
