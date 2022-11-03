@@ -1,4 +1,4 @@
-FROM ubuntu:21.04 as builder
+FROM ubuntu:22.04 as builder
 LABEL stage=builder
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -7,8 +7,9 @@ ENV DEBCONF_NONINTERACTIVE_SEEN true
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+RUN apt-get update -y
+
 RUN truncate -s0 /tmp/preseed.cfg && \
-    apt-get update && \
     echo "tzdata tzdata/Areas select Europe" >> /tmp/preseed.cfg && \
     echo "tzdata tzdata/Zones/Europe select Berlin" >> /tmp/preseed.cfg && \
     debconf-set-selections /tmp/preseed.cfg && \
@@ -40,7 +41,7 @@ RUN cd /tmp/percona_src && \
 RUN rm /tmp/percona_src/pxc-build/*-minimal.tar.gz
 RUN mv /tmp/percona_src/pxc-build/*.tar.gz /tmp/percona_server.tar.gz
 
-FROM ubuntu:21.04
+FROM ubuntu:22.04
 COPY --from=builder /tmp/percona_server.tar.gz /tmp/percona_server.tar.gz
 
 RUN cd /tmp && \
